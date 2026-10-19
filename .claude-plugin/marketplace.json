@@ -1,6 +1,9 @@
 {
   "name": "fresh-ctx",
-  "owner": { "name": "Edwin" },
+  "description": "fresh-ctx: automatic context handoff for Claude Code.",
+  "owner": {
+    "name": "Edwin"
+  },
   "plugins": [
     {
       "name": "fresh-ctx",

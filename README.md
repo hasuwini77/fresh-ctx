@@ -4,10 +4,12 @@ Stops long Claude sessions from rotting. At **~35% context** Claude finishes its
 
 ## Claude Code (terminal, or the Code tab in the desktop app): automatic
 
+Inside Claude Code:
 ```
-/plugin marketplace add /path/to/fresh-ctx
+/plugin marketplace add hasuwini77/fresh-ctx
 /plugin install fresh-ctx@fresh-ctx
 ```
+Update later with `/plugin marketplace update fresh-ctx`.
 Restart Claude Code. From then on:
 
 1. Context crosses 35% → a hook tells Claude to finish its current step, write a handoff and stop.
@@ -31,7 +33,7 @@ Requires bash. Tested on Linux/WSL; macOS should work; native Windows is unteste
 
 ## Claude chat app (claude.ai / desktop chat): manual
 
-The chat app has no hooks and no `/clear`, so this version can't be automatic. Upload `fresh-ctx-chat.zip` under **Settings → Capabilities → Skills**. Say `fresh ctx` (Claude also offers it when a chat gets long), copy the block it gives you, open a new chat, and paste it in.
+The chat app has no hooks and no `/clear`, so this version can't be automatic. Download [`fresh-ctx-chat.zip`](fresh-ctx-chat.zip) and upload it under **Settings → Capabilities → Skills**. Say `fresh ctx` (Claude also offers it when a chat gets long), copy the block it gives you, open a new chat, and paste it in.
 
 ## Limits
 - On a 1M-token model, 35% is 350k tokens. Set `FRESH_CTX_PCT` lower (e.g. `15`) if you want handoffs sooner.

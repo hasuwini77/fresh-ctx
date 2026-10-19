@@ -14,7 +14,6 @@ cwd=$(json_str cwd "$input")
 mkdir -p "$FRESH_DIR"; [ -n "$cwd" ] && [ ! -f "$FRESH_DIR/.cwd-$session" ] && printf '%s' "$cwd" > "$FRESH_DIR/.cwd-$session"
 
 flag="$FRESH_DIR/.fired-$session"
-[ -f "$flag" ] && exit 0
 
 # Last main-thread assistant turn: input + cache read + cache write = tokens in context.
 last=$(tail -n 300 "$transcript" | grep '"type":"assistant"' | grep -v '"isSidechain":true' | grep '"usage"' | tail -n 1)
@@ -25,7 +24,9 @@ used=$(( $(num input_tokens) + $(num cache_read_input_tokens) + $(num cache_crea
 window="${FRESH_CTX_WINDOW:-$(cat "$FRESH_DIR/.window" 2>/dev/null || echo 200000)}"
 pct=$(( used * 100 / window ))
 is_due "$session" "$used" "$window" || exit 0
+# Nudge once, then again every FRESH_CTX_RENUDGE tokens if Claude keeps going without a handoff.
+[ -f "$flag" ] && [ $(( used - $(cat "$flag") )) -lt "${FRESH_CTX_RENUDGE:-50000}" ] && exit 0
 
-: > "$flag"
+printf '%s' "$used" > "$flag"
 msg="[fresh-ctx] Context is at ${pct}% (${used} of ${window} tokens). Finish the step you are on (do not start a new one), then run the fresh-ctx skill: write the handoff and stop. Context is then cleared and the handoff reloaded automatically."
 printf '{"hookSpecificOutput":{"hookEventName":"%s","additionalContext":"%s"}}\n' "${event:-PostToolUse}" "$msg"

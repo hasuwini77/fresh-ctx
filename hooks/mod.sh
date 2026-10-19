@@ -1,9 +1,9 @@
 #!/usr/bin/env bash
-# Helper for register.ts:  window <tokens> | take <session_id> | pct
+# Helper for register.ts:  window <tokens> | take <session_id> | due <session_id> <tokens> <window>
 . "$(dirname "$0")/lib.sh"
 case "$1" in
   window) mkdir -p "$FRESH_DIR" && printf '%s' "$2" > "$FRESH_DIR/.window" ;;
-  pct) echo "${FRESH_CTX_PCT:-35}" ;;
+  due) is_due "$2" "$3" "$4" && echo yes ;;
   take)
     pending="$FRESH_DIR/.pending-$2"
     [ -f "$pending" ] || exit 0

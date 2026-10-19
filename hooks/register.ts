@@ -28,8 +28,8 @@ export const register: Register = on => {
         return
       }
       const { context } = await $.session.usage()
-      const limit = Number((await sh('pct')).stdout.trim()) || 35
-      if ((context.percent ?? 0) < limit || nudged.has(sid)) return
+      if (!context.tokens || nudged.has(sid)) return
+      if ((await sh('due', sid, String(context.tokens), String(context.window))).stdout.trim() !== 'yes') return
       nudged.add(sid)
       await $.prompt.submit({ text: `[fresh-ctx] Context is at ${context.percent}%. Run the fresh-ctx skill now: write the handoff and stop.` })
     })().catch(err => $.ui.toast(`fresh-ctx: ${String(err)}`))

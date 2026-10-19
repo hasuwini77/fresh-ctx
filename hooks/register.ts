@@ -4,8 +4,19 @@ import type { Register } from 'claude-code'
 //  - a handoff is waiting for this session → /clear, then submit the handoff as the next prompt;
 //  - context is past the threshold with no handoff yet → ask Claude to write one (once per session).
 // Paths and env live in bash (hooks/mod.sh) so the mod and the shell hooks agree on them.
+const field = (input: unknown, key: string): string => {
+  const value = (input as Record<string, unknown> | null)?.[key]
+  return typeof value === 'string' ? value : ''
+}
+
 export const register: Register = on => {
   const nudged = new Set<string>()
+
+  // The handoff must never wait on a permission prompt: allow the skill and its save script, nothing else.
+  on('tool.check', { tool: 'Skill' }, ($, e, next) =>
+    /(^|:)fresh-ctx$/.test(field(e.input, 'skill')) ? { decision: 'allow' } : next(e))
+  on('tool.check', { tool: 'Bash' }, ($, e, next) =>
+    field(e.input, 'command').startsWith(`bash "${$.plugin.root}/skills/fresh-ctx/save.sh"`) ? { decision: 'allow' } : next(e))
 
   on('session.measure', async ($, e, next) => {
     if (e.context.window) await $.process.run(['bash', `${$.plugin.root}/hooks/mod.sh`, 'window', String(e.context.window)])

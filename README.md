@@ -19,13 +19,15 @@ Type `fresh ctx` any time to hand off early.
 | Setting (env var) | Default | Meaning |
 |---|---|---|
 | `FRESH_CTX_PCT` | `35` | Trigger point, % of window |
-| `FRESH_CTX_MIN_GROWTH` | `5` | Points of real work a session must add before it hands off (stops a fresh window from re-triggering) |
+| `FRESH_CTX_MIN_GROWTH` | `5` | A session that started from a handoff must grow this many points before handing off again (stops loops) |
 | `FRESH_CTX_WINDOW` | auto | Window size; read from the session, override only if needed |
 | `FRESH_CTX_DIR` | `~/.claude/fresh-ctx` | Where handoffs live (one per project folder) |
 
 Set these in `~/.claude/settings.json` under `"env"`.
 
-Requires only bash (macOS, Linux, WSL; on Windows, the Git Bash that Claude Code already uses).
+Works in any permission mode: the mod approves only the fresh-ctx skill and its save script, so a handoff never waits on a prompt. Subagent tool calls are ignored.
+
+Requires bash. Tested on Linux/WSL; macOS should work; native Windows is untested.
 
 ## Claude chat app (claude.ai / desktop chat): manual
 

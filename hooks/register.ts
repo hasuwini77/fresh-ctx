@@ -24,6 +24,7 @@ export const register: Register = on => {
       if (handoff) {
         $.ui.toast('fresh-ctx: clearing context and reloading the handoff')
         await $.command.run({ command: 'clear' })
+        await sh('mark', await $.session.id())
         await $.prompt.submit({ text: `[fresh-ctx] Handoff from the previous context window. Continue from here; do not redo finished work.\n\n${handoff}` })
         return
       }

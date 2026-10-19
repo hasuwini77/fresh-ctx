@@ -9,3 +9,4 @@ echo "[fresh-ctx] Handoff from the previous context window. Continue from here; 
 echo
 cat "$file"
 mv "$file" "$file.loaded"
+sid=$(json_str session_id "$input"); [ -n "$sid" ] && : > "$FRESH_DIR/.handoff-$sid"

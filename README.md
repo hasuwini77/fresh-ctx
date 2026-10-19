@@ -22,6 +22,7 @@ Type `fresh ctx` any time to hand off early.
 |---|---|---|
 | `FRESH_CTX_PCT` | `35` | Trigger point, % of window |
 | `FRESH_CTX_TOKENS` | `150000` | Trigger point in tokens; whichever of the two comes first wins |
+| `FRESH_CTX_RENUDGE` | `50000` | If Claude keeps going after a nudge, nudge again every this many tokens |
 | `FRESH_CTX_MIN_GROWTH` | `5` | A session that started from a handoff must grow this many points before handing off again (stops loops) |
 | `FRESH_CTX_WINDOW` | auto | Window size; read from the session, override only if needed |
 | `FRESH_CTX_DIR` | `~/.claude/fresh-ctx` | Where handoffs live (one per project folder) |
@@ -38,5 +39,6 @@ The chat app has no hooks and no `/clear`, so this version can't be automatic. D
 
 ## Limits
 - Automatic clear needs a host that loads mods. Tested in the terminal CLI; the desktop app's Code tab is untested. Without mods, Claude stops and asks you to type `/clear`, and the handoff still reloads by itself.
+- Background jobs (builds, test runs) keep running across the clear; the fresh window gets their completion notice and the handoff lists them.
 - Pressing Esc on a turn skips the automatic step for that turn.
 - A handoff is loaded once, then archived as `.md.loaded` in `~/.claude/fresh-ctx/`.

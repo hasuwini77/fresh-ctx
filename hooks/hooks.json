@@ -1,13 +1,41 @@
 {
+  "modules": [
+    "./register.ts"
+  ],
   "hooks": {
     "PostToolUse": [
-      { "hooks": [ { "type": "command", "command": "bash \"${CLAUDE_PLUGIN_ROOT}/hooks/watch.sh\"", "timeout": 5 } ] }
+      {
+        "hooks": [
+          {
+            "type": "command",
+            "command": "bash \"${CLAUDE_PLUGIN_ROOT}/hooks/watch.sh\"",
+            "timeout": 5
+          }
+        ]
+      }
     ],
     "UserPromptSubmit": [
-      { "hooks": [ { "type": "command", "command": "bash \"${CLAUDE_PLUGIN_ROOT}/hooks/watch.sh\"", "timeout": 5 } ] }
+      {
+        "hooks": [
+          {
+            "type": "command",
+            "command": "bash \"${CLAUDE_PLUGIN_ROOT}/hooks/watch.sh\"",
+            "timeout": 5
+          }
+        ]
+      }
     ],
     "SessionStart": [
-      { "matcher": "clear|startup", "hooks": [ { "type": "command", "command": "bash \"${CLAUDE_PLUGIN_ROOT}/hooks/reload.sh\"", "timeout": 5 } ] }
+      {
+        "matcher": "clear|startup",
+        "hooks": [
+          {
+            "type": "command",
+            "command": "bash \"${CLAUDE_PLUGIN_ROOT}/hooks/reload.sh\"",
+            "timeout": 5
+          }
+        ]
+      }
     ]
   }
 }

@@ -7,6 +7,8 @@ root="$PWD"
 [ -n "$CLAUDE_CODE_SESSION_ID" ] && [ -f "$FRESH_DIR/.cwd-$CLAUDE_CODE_SESSION_ID" ] && root=$(cat "$FRESH_DIR/.cwd-$CLAUDE_CODE_SESSION_ID")
 file=$(handoff_path "$root")
 cat > "$file"
+# Tell the mod a handoff is waiting for this session.
+[ -n "$CLAUDE_CODE_SESSION_ID" ] && printf '%s' "$file" > "$FRESH_DIR/.pending-$CLAUDE_CODE_SESSION_ID"
 clip=none
 if command -v pbcopy >/dev/null; then pbcopy < "$file" && clip=pbcopy
 elif command -v clip.exe >/dev/null; then clip.exe < "$file" && clip=clip.exe

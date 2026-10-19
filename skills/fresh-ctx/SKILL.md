@@ -39,8 +39,6 @@ bash "${CLAUDE_SKILL_DIR}/save.sh" <<'HANDOFF'
 HANDOFF
 ```
 
-3. **Stop and tell the user** in two lines:
-   - "Handoff saved and copied to clipboard. Type **/clear** and I'll pick up from it automatically."
-   - If the script printed `clipboard: none`, say "saved" instead of "copied".
+3. **Stop.** End your turn with one line: "Handoff saved. Clearing context and continuing automatically. If nothing happens, type **/clear**."
 
-Do not keep working after step 3. The handoff reloads by itself after `/clear` (or in a new session in the same folder).
+Do not keep working after step 3. The fresh-ctx mod clears context and submits the handoff as the next prompt. Without the mod (e.g. a host that doesn't load mods), `/clear` or a new session in the same folder reloads it.

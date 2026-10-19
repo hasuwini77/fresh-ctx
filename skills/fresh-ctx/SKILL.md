@@ -10,7 +10,7 @@ Long sessions get worse past ~35% context: slower, pricier, more forgetful. Move
 
 ## Steps
 
-1. **Finish the current step.** Don't start new work. If a long command is running, let it finish or note its state.
+1. **Finish the current step.** Don't start new work. Don't wait for or kill background jobs: they keep running across the clear and the next window gets their completion notice.
 2. **Write the handoff** and save it with the script below. Keep it under ~60 lines. Facts, not story:
 
 ```bash
@@ -25,7 +25,8 @@ bash "${CLAUDE_SKILL_DIR}/save.sh" <<'HANDOFF'
 
 ## Current state
 - Branch / last commit: <...>
-- Running or half-done: <command, job, or edit in progress>
+- Background jobs still running: <task id, command, output file> — or "none". The next window must not restart them.
+- Half-done: <edit or step in progress>
 - Tests / build: <last result, pass or fail, with the command>
 
 ## Next steps

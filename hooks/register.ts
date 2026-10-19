@@ -43,7 +43,7 @@ export const register: Register = on => {
       if (!context.tokens || nudged.has(sid)) return
       if ((await sh('due', sid, String(context.tokens), String(context.window))).stdout.trim() !== 'yes') return
       nudged.add(sid)
-      await $.prompt.submit({ text: `[fresh-ctx] Context is at ${context.percent}%. Run the fresh-ctx skill now: write the handoff and stop.` })
+      await $.prompt.submit({ text: `[fresh-ctx] Context is at ${context.percent}% (${context.tokens} tokens). Run the fresh-ctx skill now: write the handoff and stop.` })
     })().catch(err => $.ui.toast(`fresh-ctx: ${String(err)}`))
 
     return done

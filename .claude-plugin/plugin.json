@@ -1,6 +1,6 @@
 {
   "name": "fresh-ctx",
-  "version": "0.2.1",
+  "version": "0.2.2",
   "description": "Auto handoff at ~35% context: Claude writes a handoff, you type /clear, the handoff reloads itself.",
   "author": { "name": "Edwin" },
   "license": "MIT"

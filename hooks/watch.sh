@@ -6,6 +6,8 @@ transcript=$(json_str transcript_path "$input")
 session=$(json_str session_id "$input")
 event=$(json_str hook_event_name "$input")
 [ -f "$transcript" ] && [ -n "$session" ] || exit 0
+# Subagent tool calls: never measure or nudge from inside a subagent.
+[ -n "$(json_str agent_id "$input")" ] && exit 0
 
 # Remember the session folder so save.sh writes where reload.sh will look, even after a cd.
 cwd=$(json_str cwd "$input")

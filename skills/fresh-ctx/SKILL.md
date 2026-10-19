@@ -1,6 +1,7 @@
 ---
 name: fresh-ctx
 description: Write a handoff and move to a fresh context window. Use when a "[fresh-ctx]" hook message says context is high, when the user says "fresh ctx", "handoff", "new context" or "clear and continue", or before starting a big new phase in a long session.
+allowed-tools: Bash(bash *fresh-ctx/save.sh*)
 ---
 
 # fresh-ctx

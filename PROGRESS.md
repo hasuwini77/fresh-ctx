@@ -3,3 +3,4 @@
 - v0.2.1: mod (`hooks/register.ts`) auto-runs /clear + submits the handoff at turn end; real window read from `session.measure`; growth guard stops handoff loops. Live tmux runs: mid-task cut (BETA) finished step 3 in the fresh window; GAMMA = 1 handoff, no loop.
 - v0.2.4: subagent calls ignored; skill + save.sh auto-allowed via `tool.check`; growth guard scoped to handoff-started sessions. Live tmux run in default permission mode: no prompt, 2 sessions, 1 handoff, no loop.
 - Published public: github.com/hasuwini77/fresh-ctx (main + tags v0.1.0, v0.2.1, v0.2.4); clean-config GitHub install verified.
+- v0.3.0: trigger at 150k tokens or 35% (first wins); re-nudge every 50k; handoff lists background jobs (verified live they survive /clear and notify the fresh window).

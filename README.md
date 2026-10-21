@@ -1,6 +1,6 @@
 # fresh-ctx
 
-Stops long Claude sessions from rotting. At **35% context or 150k tokens** (whichever comes first) Claude finishes its current step and writes a handoff. Then the context is **cleared and the handoff submitted as the next prompt automatically**, and the work continues in a fresh window. Nothing to type, copy or paste.
+Stops long Claude sessions from rotting. At **35% context or 250k tokens** (whichever comes first) Claude finishes its current step and writes a handoff. Then the context is **cleared and the handoff submitted as the next prompt automatically**, and the work continues in a fresh window. Nothing to type, copy or paste.
 
 ## Claude Code (terminal, or the Code tab in the desktop app): automatic
 
@@ -12,7 +12,7 @@ Inside Claude Code:
 Update later with `/plugin marketplace update fresh-ctx`.
 Restart Claude Code. From then on:
 
-1. Context crosses 35% or 150k tokens → a hook tells Claude to finish its current step, write a handoff and stop.
+1. Context crosses 35% or 250k tokens → a hook tells Claude to finish its current step, write a handoff and stop.
 2. When that turn ends, the fresh-ctx **mod** runs `/clear` and submits the handoff as the next prompt.
 3. Claude continues the job in a clean window. This repeats for as long as the job runs.
 
@@ -21,7 +21,7 @@ Type `fresh ctx` any time to hand off early.
 | Setting (env var) | Default | Meaning |
 |---|---|---|
 | `FRESH_CTX_PCT` | `35` | Trigger point, % of window |
-| `FRESH_CTX_TOKENS` | `150000` | Trigger point in tokens; whichever of the two comes first wins |
+| `FRESH_CTX_TOKENS` | `250000` | Trigger point in tokens; whichever of the two comes first wins |
 | `FRESH_CTX_RENUDGE` | `50000` | If Claude keeps going after a nudge, nudge again every this many tokens |
 | `FRESH_CTX_MIN_GROWTH` | `5` | A session that started from a handoff must grow this many points before handing off again (stops loops) |
 | `FRESH_CTX_WINDOW` | auto | Window size; read from the session, override only if needed |

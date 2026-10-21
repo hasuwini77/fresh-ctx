@@ -6,7 +6,7 @@ allowed-tools: Bash(bash *fresh-ctx/save.sh*)
 
 # fresh-ctx
 
-Long sessions get worse past ~35% context: slower, pricier, more forgetful. Move the work to a clean window.
+Long sessions get worse as context grows: slower, pricier, more forgetful. Move the work to a clean window.
 
 ## Steps
 

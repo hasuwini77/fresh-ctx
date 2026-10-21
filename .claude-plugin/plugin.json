@@ -1,6 +1,6 @@
 {
   "name": "fresh-ctx",
-  "version": "0.3.0",
+  "version": "0.4.0",
   "description": "Auto handoff at 250k tokens or 35% context: Claude writes a handoff, the context clears and the handoff reloads itself.",
   "author": { "name": "Edwin" },
   "license": "MIT"

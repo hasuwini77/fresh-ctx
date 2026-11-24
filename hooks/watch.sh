@@ -6,6 +6,12 @@ transcript=$(json_str transcript_path "$input")
 session=$(json_str session_id "$input")
 event=$(json_str hook_event_name "$input")
 [ -f "$transcript" ] && [ -n "$session" ] || exit 0
+# Headless runs (`claude -p`, SDK: CLAUDE_CODE_ENTRYPOINT=sdk-*): nobody is there to /clear, so a
+# nudge only makes a scheduled job stop mid-task. FRESH_CTX_HEADLESS=1 opts back in.
+case "${CLAUDE_CODE_ENTRYPOINT:-cli}" in
+  cli) ;;
+  *) [ "${FRESH_CTX_HEADLESS:-0}" = 1 ] || exit 0 ;;
+esac
 # Subagent tool calls: never measure or nudge from inside a subagent.
 [ -n "$(json_str agent_id "$input")" ] && exit 0
 

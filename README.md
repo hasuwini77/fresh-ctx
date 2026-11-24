@@ -25,6 +25,7 @@ Type `fresh ctx` any time to hand off early.
 | `FRESH_CTX_RENUDGE` | `50000` | If Claude keeps going after a nudge, nudge again every this many tokens |
 | `FRESH_CTX_MIN_GROWTH` | `5` | A session that started from a handoff must grow this many points before handing off again (stops loops) |
 | `FRESH_CTX_WINDOW` | auto | Window size; read from the session, override only if needed |
+| `FRESH_CTX_HEADLESS` | `0` | `1` lets headless runs (`claude -p`, SDK) get the nudge too; off by default because nobody is there to clear them |
 | `FRESH_CTX_DIR` | `~/.claude/fresh-ctx` | Where handoffs live (one per project folder) |
 
 Set these in `~/.claude/settings.json` under `"env"`.
